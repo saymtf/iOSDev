@@ -17,12 +17,17 @@ class ViewController: UIViewController {
         let digit = sender.currentTitle!; // let is a constant, ! gets the string of button
         //println("Digit = \(digit)"); // print
         if( userIsInTheMiddleOfTypingANumber) {
-        display.text = display.text! + digit; // need !, bc its an optional type need to unwrap
+            if((digit == "." && display.text!.rangeOfString(".")) != nil) {
+                return;
+            }
+            display.text = display.text! + digit; // need !, bc its an optional type need to unwrap
         }else {
             display.text = digit;
             userIsInTheMiddleOfTypingANumber = true;
         }
     }
+    
+    
     @IBAction func operate(sender: UIButton) {
         let operation = sender.currentTitle!;
         if(userIsInTheMiddleOfTypingANumber) {
@@ -35,7 +40,7 @@ class ViewController: UIViewController {
             performOperation { $0 * $1 };
         case "/":
             // performs a quick closure function
-            performOperation { $1 / $1 };
+            performOperation { $1 / $0 };
         case "+":
             // performs a quick closure function
             performOperation { $0 + $1 };
@@ -45,6 +50,12 @@ class ViewController: UIViewController {
         case "√":
             // performs a quick closure function
             performOperation { sqrt($0) };
+        case "cos":
+            // performs a quick closure function
+            performOperation { cos($0) };
+        case "sin":
+            // performs a quick closure function
+            performOperation { sin($0) };
         default: break;
         }
     }
@@ -67,11 +78,11 @@ class ViewController: UIViewController {
     
     //var operandStack: Array<Double> = Array<Double>();
     var operandStack = Array<Double>(); // infers that it's an Array
+    
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false;
         operandStack.append(displayValue); // call the computed prop.
         println("operandStack = \(operandStack)");
-        
     }
     
     //computed properties
@@ -85,5 +96,10 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func clear() {
+        operandStack.removeAll();
+        display.text! = "\(0)";
+        userIsInTheMiddleOfTypingANumber = false;
+    }
 }
 
