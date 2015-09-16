@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         let digit = sender.currentTitle!; // let is a constant, ! gets the string of button
         //println("Digit = \(digit)"); // print
         if( userIsInTheMiddleOfTypingANumber) {
-            if((digit == "." && display.text!.rangeOfString(".")) != nil) {
+            if((digit == "." && display.text!.rangeOfString(".") != nil)) {
                 return;
             }
             display.text = display.text! + digit; // need !, bc its an optional type need to unwrap
