@@ -31,9 +31,17 @@ class ViewController: UIViewController {
     
     
     @IBAction func operate(sender: UIButton) {
-        let operation = sender.currentTitle!;
+        //let operation = sender.currentTitle!;
         if(userIsInTheMiddleOfTypingANumber) {
             enter();
+        }
+        
+        if let operation = sender.currentTitle {
+            if let result = brain.performOperation(operation) {
+                displayValue = result
+            } else {
+                displayValue = 0
+            }
         }
       /*
         switch operation {
@@ -60,9 +68,10 @@ class ViewController: UIViewController {
             performSingleOperation { sin($0) };
         default: break;
         }
-*/
+        */
     }
-  /*
+ 
+    /*
     // Takes two doubles and returns a double
     func performOperation(operation: (Double, Double) -> Double) {
         if(operandStack.count >= 2) {
@@ -78,7 +87,7 @@ class ViewController: UIViewController {
             enter();
         }
     }
-  */
+    */
     
     //var operandStack: Array<Double> = Array<Double>();
     //var operandStack = Array<Double>(); // infers that it's an Array
@@ -89,7 +98,7 @@ class ViewController: UIViewController {
         if let result = brain.pushOperand(displayValue) {
             displayValue = result
         } else {
-            
+            displayValue = 0
         }
         
         //operandStack.append(displayValue); // call the computed prop.
