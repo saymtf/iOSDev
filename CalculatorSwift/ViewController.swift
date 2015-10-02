@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     
     var userIsInTheMiddleOfTypingANumber = false;
     
+    var brain = CalculatorBrain()
+    
     @IBAction func appendDigit(sender: UIButton) {
         let digit = sender.currentTitle!; // let is a constant, ! gets the string of button
         //println("Digit = \(digit)"); // print
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
         if(userIsInTheMiddleOfTypingANumber) {
             enter();
         }
-        
+      /*
         switch operation {
         case "X":
             // performs a quick closure function
@@ -58,8 +60,9 @@ class ViewController: UIViewController {
             performSingleOperation { sin($0) };
         default: break;
         }
+*/
     }
-    
+  /*
     // Takes two doubles and returns a double
     func performOperation(operation: (Double, Double) -> Double) {
         if(operandStack.count >= 2) {
@@ -75,14 +78,22 @@ class ViewController: UIViewController {
             enter();
         }
     }
+  */
     
     //var operandStack: Array<Double> = Array<Double>();
-    var operandStack = Array<Double>(); // infers that it's an Array
+    //var operandStack = Array<Double>(); // infers that it's an Array
     
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false;
-        operandStack.append(displayValue); // call the computed prop.
-        print("operandStack = \(operandStack)");
+        brain.pushOperand(displayValue);
+        if let result = brain.pushOperand(displayValue) {
+            displayValue = result
+        } else {
+            
+        }
+        
+        //operandStack.append(displayValue); // call the computed prop.
+        //print("operandStack = \(operandStack)");
     }
     
     //computed properties
@@ -97,7 +108,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func clear() {
-        operandStack.removeAll();
+        //operandStack.removeAll();
         display.text! = "\(0)";
         userIsInTheMiddleOfTypingANumber = false;
     }
