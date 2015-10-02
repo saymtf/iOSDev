@@ -49,13 +49,13 @@ class ViewController: UIViewController {
             performOperation { $1 - $0 };
         case "√":
             // performs a quick closure function
-            performOperation { sqrt($0) };
+            performSingleOperation { sqrt($0) };
         case "cos":
             // performs a quick closure function
-            performOperation { cos($0) };
+            performSingleOperation { cos($0) };
         case "sin":
             // performs a quick closure function
-            performOperation { sin($0) };
+            performSingleOperation { sin($0) };
         default: break;
         }
     }
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
     }
 
     // Takes two doubles and returns a double
-    func performOperation(operation: (Double) -> Double) {
+    func performSingleOperation(operation: (Double) -> Double) {
         if(operandStack.count >= 1) {
             displayValue = operation(operandStack.removeLast());
             enter();
@@ -82,7 +82,7 @@ class ViewController: UIViewController {
     @IBAction func enter() {
         userIsInTheMiddleOfTypingANumber = false;
         operandStack.append(displayValue); // call the computed prop.
-        println("operandStack = \(operandStack)");
+        print("operandStack = \(operandStack)");
     }
     
     //computed properties
